@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    app1:cardElevation="10dp"
+    app1:cardMaxElevation="10dp"
+    android:layout_margin="5dp"
+   app1:cardCornerRadius="20dp"
+    android:layout_height="wrap_content"
+    android:outlineSpotShadowColor="#911302"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#00FFFFFF"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageGenre"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="7dp"
+            android:contentDescription="@string/app_name"
+            android:padding="5dp"
+           android:src="@drawable/power" />
+
+        <TextView
+
+            android:id="@+id/genreHeadLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@id/imageGenre"
+            android:drawablePadding="3dp"
+            android:shadowColor="#F1F1F1"
+            android:shadowDx="30"
+            android:shadowDy="30"
+            android:shadowRadius="30"
+            android:text="Headline"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:id="@+id/textForContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/genreHeadLine"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@id/imageGenre"
+            android:drawablePadding="2dp"
+            android:text="Click Here for Continue"
+            android:textAlignment="center"
+            android:textColor="#FF0000" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

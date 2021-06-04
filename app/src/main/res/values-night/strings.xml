@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="genre">Quotes Genre</string>
+    <string name="suggest">Image Status</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="rateus">RateUs</string>
+    <string name="aboutus">AboutUs</string>
+</resources>
