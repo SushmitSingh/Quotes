@@ -3,7 +3,7 @@
     <style name="Theme.Quotes" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#FF7844</item>
-        <item name="colorPrimaryVariant">#C72C41</item>
+        <item name="colorPrimaryVariant">@color/litegray</item>
         <item name="colorOnPrimary">#801336</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,7 +12,7 @@
 
         <item name="colorOnBackground">#53354A</item>
 
-        <item name="colorSurface">#1B1F3A</item>
+        <item name="colorSurface">#33030d</item>
         <item name="colorOnSurface">#2D132C</item>
 
         <item name="colorError">#A64942</item>
