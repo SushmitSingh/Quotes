@@ -7,6 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="litegray">#BAECAEA9</color>
-    <color name="colorPrimaryH">#FF0057</color>
+    <color name="litegray">#ff7844</color>
+    <color name="colorPrimaryH">#FF5722</color>
+    <color name="secondary_text">#a64942</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#BDBDBD</color>
 </resources>
