@@ -8,46 +8,46 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.quotes.Letest.AdapterLetest;
+import com.example.quotes.Letest.LetestDataHendle;
 import com.example.quotes.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.List;
 
-public class AdapterQuotesText extends RecyclerView.Adapter<AdapterQuotesText.ViewHolder> {
-    private Context context;
-    private List<DataHandlerPopular> dataList;
+public class AdapterQuotesText extends FirebaseRecyclerAdapter<LetestDataHendle,AdapterQuotesText.LetestHolder> {
 
-    public AdapterQuotesText(Context context, List<DataHandlerPopular> dataList) {
-        this.context = context;
-        this.dataList = dataList;
+
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public AdapterQuotesText(@NonNull FirebaseRecyclerOptions<LetestDataHendle> options) {
+        super(options);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull AdapterQuotesText.LetestHolder holder, int position, @NonNull LetestDataHendle model) {
+        holder.popularText.setText(model.getTitle());
     }
 
     @NonNull
     @Override
-    public AdapterQuotesText.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.popular_latest_saved_card_layout,parent,false);
-        return new ViewHolder(view);
+    public AdapterQuotesText.LetestHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate( R.layout.popular_latest_saved_card_layout,parent,false);
+        return new AdapterQuotesText.LetestHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            DataHandlerPopular dbHandle = dataList.get(position);
-            holder.quoteText.setText(dbHandle.getQuote());
-            holder.qouteTag.setText(dbHandle.getTagType());
-    }
-
-    @Override
-    public int getItemCount() {
-        return dataList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView quoteText,qouteTag;
-
-        public ViewHolder(@NonNull View itemView) {
+    class LetestHolder extends RecyclerView.ViewHolder{
+        TextView popularText;
+        public LetestHolder(@NonNull View itemView) {
             super(itemView);
-            quoteText = itemView.findViewById(R.id.quoteTextView);
-            qouteTag = itemView.findViewById(R.id.tagTextView);
-
+            popularText=itemView.findViewById(R.id.quoteTextView);
         }
     }
+
 }

@@ -14,9 +14,13 @@ import android.view.ViewGroup;
 
 import com.example.quotes.Home.slidetabs.imagerecyclerOtherclasses.AdapterImageData;
 import com.example.quotes.Home.slidetabs.imagerecyclerOtherclasses.ImageDataHandling;
+import com.example.quotes.Letest.AdapterLetest;
+import com.example.quotes.Letest.LetestDataHendle;
 import com.example.quotes.R;
 import com.example.quotes.databinding.FragmentImageStatusBinding;
 import com.example.quotes.databinding.FragmentQuotesGenreBinding;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -35,7 +39,9 @@ public class ImageStatus extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<ImageDataHandling> ImagedataList;
+    private RecyclerView recyclerView;
+    private AdapterImageData adapter;
+
 
     public ImageStatus() {
         // Required empty public constructor
@@ -77,30 +83,49 @@ public class ImageStatus extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentImageStatusBinding.inflate(inflater,container,false);
-         View view = binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_image_status, container, false);
+        // Inflate the layout for this fragment
+        recyclerView = view.findViewById(R.id.ImagestatusrecyclerView);
+
+
+
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        FirebaseRecyclerOptions<ImageDataHandling> options = new FirebaseRecyclerOptions.Builder<ImageDataHandling>()
+                .setQuery(FirebaseDatabase.getInstance().getReference("image"), ImageDataHandling.class)
+
+                .build();
+        adapter = new AdapterImageData(options);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+//        binding = FragmentLatestFreagBinding.inflate(inflater,container,false);
+//        View view=binding.getRoot();
+
         return view;
+    }
+    // Read from the database
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter != null) {
+            adapter.startListening();
+        }
+
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-         ImagedataList = new ArrayList<>();
-         ImagedataList.add(new ImageDataHandling("Evening time",R.drawable.imagesamle));
-         ImagedataList.add(new ImageDataHandling("Evening time",R.drawable.imagesamle));
-         ImagedataList.add(new ImageDataHandling("Evening time",R.drawable.imagesamle));
-         ImagedataList.add(new ImageDataHandling("Evening time",R.drawable.imagesamle));
-         ImagedataList.add(new ImageDataHandling("Evening time",R.drawable.imagesamle));
-         ImagedataList.add(new ImageDataHandling("Evening time",R.drawable.imagesamle));
-         ImagedataList.add(new ImageDataHandling("Evening time",R.drawable.imagesamle));
-        ImagedataList.add(new ImageDataHandling("another time",R.drawable.instagram));
-        ImagedataList.add(new ImageDataHandling("another time",R.drawable.instagram));
-        ImagedataList.add(new ImageDataHandling("another time",R.drawable.instagram));
-        ImagedataList.add(new ImageDataHandling("another time",R.drawable.instagram));
+    public void onStop() {
+        super.onStop();
+        if (adapter != null) {
+            adapter.stopListening();
+        }
 
-        AdapterImageData adImg = new AdapterImageData(getContext(),ImagedataList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        binding.ImagestatusrecyclerView.setLayoutManager(linearLayoutManager);
-        binding.ImagestatusrecyclerView.setAdapter(adImg);
-        super.onViewCreated(view, savedInstanceState);
     }
+
+
+
 }

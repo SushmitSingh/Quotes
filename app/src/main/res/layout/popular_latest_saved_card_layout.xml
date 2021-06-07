@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@drawable/curcle_view2"
-    android:textAlignment="viewStart"
+
     android:textDirection="anyRtl"
     app:cardCornerRadius="20dp"
     app:cardElevation="12dp"
@@ -44,7 +44,7 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textDirection="rtl"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:textStyle="italic"
                 android:typeface="sans" />
         </androidx.cardview.widget.CardView>
@@ -68,7 +68,7 @@
                 android:background="#00112233"
                 android:gravity="center"
                 android:text="tagType"
-                android:textAlignment="viewStart"
+
                 android:textColor="#F44336"
                 android:textSize="12sp"
                 android:textStyle="normal|bold|italic"

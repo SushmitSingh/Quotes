@@ -9,45 +9,43 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.quotes.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.ArrayList;
 
 
-public class AdapterLetest extends RecyclerView.Adapter<AdapterLetest.ViewHolder> {
-    private ArrayList<LetestDataHendle> dataList;
-    private Context context;
+public class AdapterLetest extends FirebaseRecyclerAdapter<LetestDataHendle,AdapterLetest.LetestHolder> {
 
-    public AdapterLetest(ArrayList<LetestDataHendle> dataList, Context context) {
-        this.dataList = dataList;
-        this.context = context;
+
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public AdapterLetest(@NonNull FirebaseRecyclerOptions<LetestDataHendle> options) {
+        super(options);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull LetestHolder holder, int position, @NonNull LetestDataHendle model) {
+        holder.latestText.setText(model.getTitle());
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LetestHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate( R.layout.popular_latest_saved_card_layout,parent,false);
-        return new ViewHolder(view);
+        return new LetestHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-          LetestDataHendle dbHandle = dataList.get(position);
-          holder.quoteText.setText(dbHandle.getQuoteText());
-          holder.genreText.setText(dbHandle.getQuoteGenre());
-    }
-
-    @Override
-    public int getItemCount() {
-        return dataList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView quoteText,genreText;
-
-        public ViewHolder(@NonNull View itemView) {
+    class LetestHolder extends RecyclerView.ViewHolder{
+        TextView latestText;
+        public LetestHolder(@NonNull View itemView) {
             super(itemView);
-            quoteText = itemView.findViewById(R.id.quoteTextView);
-            genreText = itemView.findViewById(R.id.tagTextView);
+            latestText=itemView.findViewById(R.id.quoteTextView);
         }
     }
+
 }

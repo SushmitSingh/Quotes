@@ -23,11 +23,11 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="360dp"
-            android:layout_margin="6dp"
+            android:layout_width="360dp"
+            android:layout_height="330dp"
+            android:layout_margin="10dp"
             android:scaleType="center"
-            tools:srcCompat="@drawable/imagesamle" />
+             />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -49,9 +49,10 @@
                 android:layout_weight="5"
                 android:gravity="center"
                 android:text="tag text Here"
-                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="9dp" />
+
+                android:textColor="@color/colorPrimaryH"
+                android:textSize="20dp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Download"

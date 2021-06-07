@@ -10,52 +10,49 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quotes.Home.slidetabs.ModelHeadlines;
 import com.example.quotes.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.List;
 
-public class AdapterImageData extends RecyclerView.Adapter<AdapterImageData.ViewHolder> {
+public class AdapterImageData extends FirebaseRecyclerAdapter<ImageDataHandling,AdapterImageData.ImageHolder>{
 
-    private Context context;
-    private List<ImageDataHandling> dataList;
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public AdapterImageData(@NonNull FirebaseRecyclerOptions<ImageDataHandling> options) {
+        super(options);
+    }
 
-    public AdapterImageData(Context context, List<ImageDataHandling> dataList) {
-        this.context = context;
-        this.dataList = dataList;
+    @Override
+    protected void onBindViewHolder(@NonNull ImageHolder holder, int position, @NonNull ImageDataHandling model) {
+        holder.mTextView.setText(model.getTag());
+        Glide.with(holder.mImageView.getContext()).load(model.getiUrl()).into(holder.mImageView);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_card,parent,false);
-        return new ViewHolder(view);
+    public ImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+      View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.image_card,parent,false);
+      return new ImageHolder(v);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ImageDataHandling imageData = dataList.get(position);
-         holder.text.setText(imageData.getType());
-         holder.image.setBackgroundResource(imageData.getImage());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return dataList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView image;
-        private  TextView   text;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            image = itemView.findViewById(R.id.imageView);
-            text = itemView.findViewById(R.id.tagText);
+    public class ImageHolder extends RecyclerView.ViewHolder{
+        ImageView mImageView;
+        TextView mTextView;
+      public ImageHolder(@NonNull View itemView) {
+          super(itemView);
+          mImageView=itemView.findViewById(R.id.imageView);
+          mTextView=itemView.findViewById(R.id.tagText);
 
 
 
-        }
-    }
+      }
+  }
 }

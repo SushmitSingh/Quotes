@@ -7,12 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.quotes.R;
 import com.example.quotes.databinding.FragmentLatestFreagBinding;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -31,6 +37,10 @@ public class LatestFreag extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView recyclerView;
+        AdapterLetest adapter;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("message");
 
     public LatestFreag() {
         // Required empty public constructor
@@ -70,44 +80,47 @@ public class LatestFreag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_latest_freag, container, false);
         // Inflate the layout for this fragment
-        binding = FragmentLatestFreagBinding.inflate(inflater,container,false);
-        View view=binding.getRoot();
+        recyclerView = view.findViewById(R.id.LetestRV);
+
+
+
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        FirebaseRecyclerOptions<LetestDataHendle> options = new FirebaseRecyclerOptions.Builder<LetestDataHendle>()
+                .setQuery(FirebaseDatabase.getInstance().getReference("yaad"), LetestDataHendle.class)
+
+                .build();
+        adapter = new AdapterLetest(options);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+//        binding = FragmentLatestFreagBinding.inflate(inflater,container,false);
+//        View view=binding.getRoot();
+
         return view;
+    }
+    // Read from the database
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter != null) {
+            adapter.startListening();
+        }
+
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        quoteDataList = new ArrayList<>();
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or he Hi shayri hai or he Hi shayri hai or he Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai ore Hi shayri hai or he Hi shayri hai or h han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai ore Hi shayri hai or he Hi shayri hai or h han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sue Hi shayri hai or he Hi shayri hai or hshmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by e Hi shayri hai or hsushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by se Hi shayri hai or hushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushme Hi shayri hai or hit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new LetestDataHendle("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new LetestDataHendle("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-
-        LinearLayoutManager lm= new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        AdapterLetest adL= new AdapterLetest(quoteDataList,getContext());
-        binding.LetestRV.setLayoutManager(lm);
-        binding.LetestRV.setAdapter(adL);
-        super.onViewCreated(view, savedInstanceState);
+    public void onStop() {
+        super.onStop();
+        if (adapter != null) {
+            adapter.stopListening();
+        }
 
     }
+   
 }

@@ -1,27 +1,29 @@
 package com.example.quotes.Home.slidetabs.imagerecyclerOtherclasses;
 
 public class ImageDataHandling {
-    private String type;
-    private int image;
+   private String tag;
+   private String iUrl;
+    ImageDataHandling(){
 
-    public ImageDataHandling(String type, int image) {
-        this.type = type;
-        this.image = image;
+    }
+    public String getTag() {
+        return tag;
     }
 
-    public String getType() {
-        return type;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getiUrl() {
+        return iUrl;
     }
 
-    public int getImage() {
-        return image;
+    public void setiUrl(String iUrl) {
+        this.iUrl = iUrl;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public ImageDataHandling(String tag, String iUrl) {
+        this.tag = tag;
+        this.iUrl = iUrl;
     }
 }

@@ -1,28 +1,20 @@
 package com.example.quotes.Letest;
 
 public class LetestDataHendle {
-    private String quoteText;
-    private String quoteGenre;
-    public LetestDataHendle(String quoteText, String quoteGenre) {
-        this.quoteText = quoteText;
-        this.quoteGenre = quoteGenre;
+    private String title;
+    LetestDataHendle(){
+
     }
 
-    public String getQuoteText() {
-        return quoteText;
+    public LetestDataHendle(String title) {
+        this.title = title;
     }
 
-    public void setQuoteText(String quoteText) {
-        this.quoteText = quoteText;
+    public String getTitle() {
+        return title;
     }
 
-    public String getQuoteGenre() {
-        return quoteGenre;
+    public void setTitle(String title) {
+        this.title = title;
     }
-
-    public void setQuoteGenre(String quoteGenre) {
-        this.quoteGenre = quoteGenre;
-    }
-
-
 }

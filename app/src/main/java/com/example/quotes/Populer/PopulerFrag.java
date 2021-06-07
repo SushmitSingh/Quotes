@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 
 import com.example.quotes.Home.slidetabs.imagerecyclerOtherclasses.ImageDataHandling;
+import com.example.quotes.Letest.AdapterLetest;
+import com.example.quotes.Letest.LetestDataHendle;
 import com.example.quotes.R;
 import com.example.quotes.databinding.FragmentPopulerBinding;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -29,7 +34,8 @@ public class PopulerFrag extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private RecyclerView recyclerView;
+    private AdapterLetest adapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -73,45 +79,46 @@ public class PopulerFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_populer, container, false);
         // Inflate the layout for this fragment
-        binding = FragmentPopulerBinding.inflate(inflater,container,false);
-        View view = binding.getRoot();
+        recyclerView = view.findViewById(R.id.populerListView);
+
+
+
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        FirebaseRecyclerOptions<LetestDataHendle> options = new FirebaseRecyclerOptions.Builder<LetestDataHendle>()
+                .setQuery(FirebaseDatabase.getInstance().getReference("couple"), LetestDataHendle.class)
+
+                .build();
+        adapter = new AdapterLetest(options);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+//        binding = FragmentLatestFreagBinding.inflate(inflater,container,false);
+//        View view=binding.getRoot();
+
         return view;
+    }
+    // Read from the database
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter != null) {
+            adapter.startListening();
+        }
+
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onStop() {
+        super.onStop();
+        if (adapter != null) {
+            adapter.stopListening();
+        }
 
-        quoteDataList = new ArrayList<>();
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-        quoteDataList.add(new DataHandlerPopular("samle text written by sushmit singh wtf movement sooooo ","wtf"));
-        quoteDataList.add(new DataHandlerPopular("ye Mere Hi shayri hai or han me Hi shayar Hun","wtf"));
-
-        AdapterQuotesText aqt=new AdapterQuotesText(getContext(),quoteDataList);
-        LinearLayoutManager lm=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        binding.populerListView.setAdapter(aqt);
-        binding.populerListView.setLayoutManager(lm);
-
-        super.onViewCreated(view, savedInstanceState);
     }
 }
