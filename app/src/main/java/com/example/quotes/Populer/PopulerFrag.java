@@ -89,7 +89,7 @@ public class PopulerFrag extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         FirebaseRecyclerOptions<LetestDataHendle> options = new FirebaseRecyclerOptions.Builder<LetestDataHendle>()
-                .setQuery(FirebaseDatabase.getInstance().getReference("couple"), LetestDataHendle.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference("populer"), LetestDataHendle.class)
 
                 .build();
         adapter = new AdapterLetest(options);

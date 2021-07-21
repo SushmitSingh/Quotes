@@ -6,50 +6,67 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quotes.R;
+import com.example.quotes.mainFrag;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.card.MaterialCardView;
+
 import java.util.List;
 
-public class AdapterGenreRecycle extends RecyclerView.Adapter<AdapterGenreRecycle.ViewHolder> {
-    private Context context;
-    private  List<ModelHeadlines> dataList;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    public AdapterGenreRecycle(Context context, List<ModelHeadlines> dataList) {
-        this.context = context;
-        this.dataList = dataList;
+public class AdapterGenreRecycle extends FirebaseRecyclerAdapter<ModelHeadlines,AdapterGenreRecycle.MainViewHolder> {
+
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public AdapterGenreRecycle(@NonNull FirebaseRecyclerOptions<ModelHeadlines> options) {
+        super(options);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull MainViewHolder holder, int position, @NonNull ModelHeadlines model) {
+        holder.mTextView.setText(model.getTitle());
+        Glide.with(holder.mImageView.getContext()).load(model.getMUrl()).into(holder.mImageView);
+        holder.mMaterialCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity appCompatActivity= (AppCompatActivity) v.getContext();
+                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.framelayout,new mainFrag(model.getTitle().toString())).addToBackStack(null).commit();
+
+            }
+        });
     }
 
     @NonNull
     @Override
-    public AdapterGenreRecycle.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.genre_card_layout,parent,false);
-        return new ViewHolder(view);
+    public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.genre_card_layout,parent,false);
+        return new MainViewHolder(v);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull AdapterGenreRecycle.ViewHolder holder, int position) {
-        ModelHeadlines model = dataList.get(position);
-        holder.headline.setText(model.getHeadline());
-        holder.text.setText("" + model.getTextline());
-        holder.imageview.setImageResource(model.getImage());
-    }
-
-    @Override
-    public int getItemCount() {
-        return dataList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageview;
-        private TextView headline, text;
-        public ViewHolder(@NonNull View itemView) {
+    public class MainViewHolder extends RecyclerView.ViewHolder{
+        CircleImageView mImageView;
+        TextView mTextView;
+        MaterialCardView mMaterialCardView;
+        public MainViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageview = itemView.findViewById(R.id.imageGenre);
-            headline = itemView.findViewById(R.id.genreHeadLine);
-            text = itemView.findViewById(R.id.textForContinue);
+            mImageView=itemView.findViewById(R.id.imageGenre);
+            mTextView =itemView.findViewById(R.id.genreHeadLine);
+            mMaterialCardView=itemView.findViewById(R.id.quoteCard);
+
+
         }
     }
 }

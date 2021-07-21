@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:app1="http://schemas.android.com/apk/res-auto"
     app1:cardElevation="10dp"
+    android:id="@+id/quoteCard"
     app1:cardMaxElevation="10dp"
     android:layout_gravity="center"
     android:layout_margin="3dp"
@@ -17,14 +18,16 @@
         android:background="@drawable/curcle_view"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_margin="6dp"
             android:id="@+id/imageGenre"
 
             android:layout_gravity="center"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            app1:srcCompat="@drawable/facebook" />
+            android:src="@drawable/facebook"
+            app1:civ_border_width="2dp"
+            app1:civ_border_color="#FF9100"/>
 
         <LinearLayout
             android:layout_margin="4dp"
@@ -35,22 +38,32 @@
 
             <TextView
                 android:id="@+id/genreHeadLine"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:capitalize="words"
+                android:clickable="false"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:shadowColor="#000000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:text="TextView"
+                android:textAllCaps="true"
+                android:textColor="#FF9100"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textForContinue"
-                android:textStyle="italic"
-                android:textSize="18sp"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:foregroundTint="#FF9100"
+                android:gravity="center"
+
+                android:text="Click on me..."
+                android:textColor="#FF9100"
+                android:textSize="18sp"
+                android:textStyle="italic" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

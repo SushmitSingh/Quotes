@@ -20,6 +20,7 @@ import com.example.quotes.R;
 import com.example.quotes.databinding.FragmentImageStatusBinding;
 import com.example.quotes.databinding.FragmentQuotesGenreBinding;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class ImageStatus extends Fragment {
     private String mParam2;
     private RecyclerView recyclerView;
     private AdapterImageData adapter;
+    DatabaseReference mDatabaseReference=FirebaseDatabase.getInstance().getReference("image");
+
 
 
     public ImageStatus() {
@@ -70,6 +73,8 @@ public class ImageStatus extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +87,7 @@ public class ImageStatus extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_image_status, container, false);
         // Inflate the layout for this fragment
@@ -93,7 +99,7 @@ public class ImageStatus extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         FirebaseRecyclerOptions<ImageDataHandling> options = new FirebaseRecyclerOptions.Builder<ImageDataHandling>()
-                .setQuery(FirebaseDatabase.getInstance().getReference("image"), ImageDataHandling.class)
+                .setQuery(mDatabaseReference, ImageDataHandling.class)
 
                 .build();
         adapter = new AdapterImageData(options);

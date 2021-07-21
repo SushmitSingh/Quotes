@@ -1,29 +1,28 @@
 package com.example.quotes.Liked;
 
 public class LikedDataHandle {
-    private String quoteText;
-    private String quoteGenre;
+    private String quote;
+    private String tag;
 
-    public LikedDataHandle(String quoteText, String quoteGenre) {
-        this.quoteText = quoteText;
-        this.quoteGenre = quoteGenre;
+    public String getTag() {
+        return tag;
     }
 
-    public String getQuoteText() {
-        return quoteText;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
-    public void setQuoteText(String quoteText) {
-        this.quoteText = quoteText;
+    LikedDataHandle(String string){}
+    public String getQuote() {
+        return quote;
     }
 
-    public String getQuoteGenre() {
-        return quoteGenre;
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 
-    public void setQuoteGenre(String quoteGenre) {
-        this.quoteGenre = quoteGenre;
+    public LikedDataHandle(String quote,String tag) {
+        this.quote = quote;
+        this.tag = tag;
     }
-
-
 }

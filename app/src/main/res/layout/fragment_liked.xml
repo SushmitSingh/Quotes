@@ -4,24 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAECDD "
+
     tools:context=".Liked.LikedFrag">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/Likettoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Saved Quotes"
-        android:elevation="6dp"
-        app:titleMarginStart="50dp"
-        android:background="@color/litegray"
+        android:elevation="1dp"
         android:minHeight="?attr/actionBarSize"
+
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/appbarmenu" />
+        app:menu="@menu/appbarmenu"
+        app:title="Saved Quotes"
+        app:titleMarginStart="50dp"
+        app:titleTextColor="@color/litegray" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"

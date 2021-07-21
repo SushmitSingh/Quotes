@@ -7,4 +7,7 @@
     <string name="whatsapp">WhatsApp</string>
     <string name="rateus">RateUs</string>
     <string name="aboutus">AboutUs</string>
+    <string name="RemoveItem">Removed</string>
+    <string name="ShareItem">Shareable</string>
+    <string name="itemCopy">Copied</string>
 </resources>

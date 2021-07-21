@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Adapter;
 import com.example.quotes.R;
 import com.example.quotes.databinding.FragmentHomeBinding;
 import com.example.quotes.databinding.FragmentQuotesGenreBinding;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -34,7 +37,8 @@ public class QuotesGenre extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private RecyclerView recyclerView;
+    private AdapterGenreRecycle adapter;
     public QuotesGenre() {
         // Required empty public constructor
     }
@@ -49,7 +53,7 @@ public class QuotesGenre extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
 
-    private FragmentQuotesGenreBinding binding;
+
     private ArrayList<ModelHeadlines> ModelHeadlinesArrayList;
     Context thiscontext;
 
@@ -75,38 +79,47 @@ public class QuotesGenre extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentQuotesGenreBinding.inflate(inflater,container,false);
-        View view = binding.getRoot();
-        thiscontext = container.getContext();
+        View view = inflater.inflate(R.layout.fragment_quotes_genre, container, false);
+        // Inflate the layout for this fragment
+        recyclerView = view.findViewById(R.id.quoteGenreRV);
+
+
+
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        FirebaseRecyclerOptions<ModelHeadlines> options = new FirebaseRecyclerOptions.Builder<ModelHeadlines>()
+                .setQuery(FirebaseDatabase.getInstance().getReference("main"), ModelHeadlines.class)
+
+                .build();
+        adapter = new AdapterGenreRecycle(options);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+//        binding = FragmentLatestFreagBinding.inflate(inflater,container,false);
+//        View view=binding.getRoot();
+
         return view;
+    }
+    // Read from the database
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter != null) {
+            adapter.startListening();
+        }
+
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        ModelHeadlinesArrayList = new ArrayList<>();
-        ModelHeadlinesArrayList.add(new ModelHeadlines("Saddd", "Lets Continue", R.drawable.facebook));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("lobhh", "Here somethgig special", R.drawable.ghome));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("pata nhi", "Lets Continue", R.drawable.power));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("joiiii", "Lets Continue", R.drawable.heart));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("freidlyyyyy", "Here somethgig special", R.drawable.users));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("atttttitude", "Lets Continue", R.drawable.starfull));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("brokkken Hoert", "Here somethgig special", R.drawable.instagram));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("pata nhi", "Lets Continue", R.drawable.power));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("Saddd", "Lets Continue", R.drawable.facebook));
-        ModelHeadlinesArrayList.add(new ModelHeadlines("lobhh", "Here somethgig special", R.drawable.ghome));
-
-
-       // passing Array to adapterGenreRecycle
-
-        AdapterGenreRecycle genreData= new AdapterGenreRecycle(thiscontext,ModelHeadlinesArrayList);
-
-        //setting a layout manager for our recycler view.
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(thiscontext, LinearLayoutManager.VERTICAL, false);
-
-        binding.quoteGenreRV.setLayoutManager(linearLayoutManager);
-        binding.quoteGenreRV.setAdapter(genreData);
+    public void onStop() {
+        super.onStop();
+        if (adapter != null) {
+            adapter.stopListening();
+        }
 
     }
+
 }

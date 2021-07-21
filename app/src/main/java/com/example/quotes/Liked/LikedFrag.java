@@ -1,5 +1,6 @@
 package com.example.quotes.Liked;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.L;
+import com.example.quotes.DBManager;
+import com.example.quotes.Letest.AdapterLetest;
+import com.example.quotes.Letest.LetestDataHendle;
 import com.example.quotes.MainActivity;
 import com.example.quotes.R;
 import com.example.quotes.databinding.FragmentLikedBinding;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -29,6 +36,8 @@ public class LikedFrag extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -49,7 +58,8 @@ public class LikedFrag extends Fragment {
     // TODO: Rename and change types and number of parameters
 
         private FragmentLikedBinding binding;
-        private ArrayList<LikedDataHandle> dataList;
+         ArrayList<LikedDataHandle> dataList=new ArrayList<>();
+    LikedDataHandle obj;
     public static LikedFrag newInstance(String param1, String param2) {
         LikedFrag fragment = new LikedFrag();
         Bundle args = new Bundle();
@@ -71,39 +81,23 @@ public class LikedFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_liked, container, false);
+
         // Inflate the layout for this fragment
-        binding = FragmentLikedBinding.inflate(inflater,container,false);
-        View view=binding.getRoot();
+        recyclerView = view.findViewById(R.id.likedRV);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        Cursor cursor= new DBManager(getContext()).readAllData();
+        while (cursor.moveToNext()){
+             obj=new LikedDataHandle(cursor.getString(1),cursor.getString(2));
+            dataList.add(obj);
+        }
+        AdapterLiked adapterLiked=new AdapterLiked(dataList);
+        recyclerView.setAdapter(adapterLiked);
+
         return view;
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        dataList = new ArrayList<>();
-        dataList.add(new LikedDataHandle("this is super s is super cool textcool text and you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool ts is supes is super cool textr cool textext and you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool text and u bring it s is sause u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is supes is super s per cool textyou bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super coolol texttext and you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cs is super cool textool texs s is super cool textis super cool textt and you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool text and you bring s is super cool textit here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cools is super cool text text ans is super cool textd you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool text s is super cool textand you s is super cool textbring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool text and you bring it here because u like this peace of shit ","lamao text"));dataList.add(new LikedDataHandle("this is super cool text and u bring it s is sause u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is supes is super s per cool textyou bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super coolol texttext and you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cs is super cool textool texs s is super cool textis super cool textt and you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool text and you bring s is super cool textit here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cools is super cool text text ans is super cool textd you bring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool text s is super cool textand you s is super cool textbring it here because u like this peace of shit ","lamao text"));
-        dataList.add(new LikedDataHandle("this is super cool text and you bring it here because u like this peace of shit ","lamao text"));
+    // Read from the database
 
 
-        LinearLayoutManager lm=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        AdapterLiked adL=new AdapterLiked(getContext(),dataList);
-
-        binding.likedRV.setLayoutManager(lm);
-        binding.likedRV.setAdapter(adL);
-        super.onViewCreated(view, savedInstanceState);
-    }
 }

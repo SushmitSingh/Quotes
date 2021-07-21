@@ -51,7 +51,7 @@
                 android:text="tag text Here"
                 android:textAlignment="center"
 
-                android:textColor="@color/colorPrimaryH"
+                android:textColor="@color/litegray"
                 android:textSize="20dp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -64,19 +64,19 @@
                 android:fontFamily="sans-serif-medium"
                 android:textSize="8dp"
                 android:layout_marginRight="4dp"
-                android:textColor="#F44336"
+                android:textColor="@color/litegray"
                 />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/Share"
-                android:textSize="8dp"
+                android:id="@+id/imageShare"
                 android:layout_width="match_parent"
-                android:layout_marginRight="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
                 android:layout_weight="10"
                 android:background="@drawable/curcle_view"
                 android:text="Share"
-                android:textColor="#F44336" />
+                android:textColor="@color/litegray"
+                android:textSize="8dp" />
 
         </LinearLayout>
     </LinearLayout>

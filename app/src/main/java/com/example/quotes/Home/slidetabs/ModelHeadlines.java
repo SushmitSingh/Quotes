@@ -1,39 +1,32 @@
 package com.example.quotes.Home.slidetabs;
 
 public class ModelHeadlines {
-    private String headline;
-    private String textline;
-    private int image;
+    private String title;
+    private String mUrl;
 
-    public ModelHeadlines(String headline, String textline, int image) {
-        this.headline = headline;
-        this.textline = textline;
-        this.image = image;
+    public ModelHeadlines(){}
+
+
+    public String getTitle() {
+        return title;
     }
 
-    public String getHeadline() {
-        return headline;
+    public void setTitle(String title) {
+        this.title = title;
+        this.mUrl = mUrl;
     }
 
-    public void setHeadline(String headline) {
-        this.headline = headline;
+    public String getMUrl() {
+        return mUrl;
     }
 
-    public String getTextline() {
-        return textline;
+    public void setMUrl(String url) {
+        mUrl = url;
     }
 
-    public void setTextline(String textline) {
-        this.textline = textline;
+    public ModelHeadlines(String title, String mUrl,String quotes) {
+        this.title = title;
+        this.mUrl = mUrl;
+
     }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-
 }

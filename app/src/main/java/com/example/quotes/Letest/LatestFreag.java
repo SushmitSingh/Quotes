@@ -1,15 +1,8 @@
 package com.example.quotes.Letest;
-
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +11,6 @@ import com.example.quotes.databinding.FragmentLatestFreagBinding;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-
 import java.util.ArrayList;
 
 /**
@@ -85,13 +76,9 @@ public class LatestFreag extends Fragment {
         recyclerView = view.findViewById(R.id.LetestRV);
 
 
-
-
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         FirebaseRecyclerOptions<LetestDataHendle> options = new FirebaseRecyclerOptions.Builder<LetestDataHendle>()
-                .setQuery(FirebaseDatabase.getInstance().getReference("yaad"), LetestDataHendle.class)
-
+                .setQuery(FirebaseDatabase.getInstance().getReference("Latest"), LetestDataHendle.class)
                 .build();
         adapter = new AdapterLetest(options);
         recyclerView.setLayoutManager(linearLayoutManager);
