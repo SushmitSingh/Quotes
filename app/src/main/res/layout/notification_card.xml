@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/curcle_view2"
+    android:textDirection="anyRtl"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="12dp"
+    app:cardMaxElevation="12dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_margin="3dp"
+        android:background="@drawable/curcle_view"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardMaxElevation="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView2">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mainfragTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:text="Te wText View Text ViewTex TextViewTe Te wText View Text ViewTex TextViewTe xtVie wTextView TextViewTextView TextViewTextView"
+                android:textAlignment="center"
+                android:textColor="#FF9100"
+                android:textDirection="rtl"
+                android:textSize="20sp"
+
+                android:typeface="sans" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="297dp"
+            android:layout_height="55dp"
+            android:layout_margin="8dp"
+            android:background="#00112233"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/likedCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/curcle_view"
+                android:text="Copy Quote"
+                android:textColor="#F44336"
+                android:textSize="10sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/likedShare"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/curcle_view"
+                android:text="Share"
+                android:textColor="#F44336"
+                android:textSize="10sp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/likedremove"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/curcle_view"
+                android:text="Remove"
+                android:textColor="#F44336"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+
+            android:id="@+id/materialTextView2"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
